@@ -15,19 +15,19 @@ node {
 		stage('Preparation') { // for display purposes
 			// Get some code from a GitHub repository
 			 //[name: '*/master']  or   [name: '*/main']
-				checkout([$class: 'GitSCM', branches: [[name: '${branch}']],doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],userRemoteConfigs: [[credentialsId: ${git_auth}, url:'https://github.com/wenanlin/tensquare_parent.git']]])
+				checkout([$class: 'GitSCM', branches: [[name: '*/master']],doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [],userRemoteConfigs: [[credentialsId: ${git_auth}, url:'https://github.com/wenanlin/tensquare_parent.git']]])
 
 		}
-		stage('Build') {
-			//定义镜像名称
-			def imageName = "${project_name}:${tag}"
-			//编译，安装公共工程
-			sh "mvn -f tensquare_common clean install"
-			//编译，构建本地镜像
-			sh "mvn -f ${project_name} clean package dockerfile:build"
-			//给镜像打标签
-			sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
-			//登录Harbor，并上传镜像
+//		stage('Build') {
+//			//定义镜像名称
+//			def imageName = "${project_name}:${tag}"
+//			//编译，安装公共工程
+//			sh "mvn -f tensquare_common clean install"
+//			//编译，构建本地镜像
+//			sh "mvn -f ${project_name} clean package dockerfile:build"
+//			//给镜像打标签
+//			sh "docker tag ${imageName} ${harbor_url}/${harbor_project_name}/${imageName}"
+//			//登录Harbor，并上传镜像
 //			withCredentials([usernamePassword(credentialsId: "${harbor_auth}",passwordVariable: 'password', usernameVariable: 'username')]) {
 //				//登录
 //				sh "docker login -u ${username} -p ${password} ${harbor_url}"
@@ -37,7 +37,7 @@ node {
 //				sh "docker rmi -f ${imageName}"
 //				sh "docker rmi -f ${harbor_url}/${harbor_project_name}/${imageName}"
 //			}
-		}
+//		}
  
  
 }
