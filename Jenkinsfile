@@ -3,7 +3,7 @@ def git_auth = "68f2087f-a034-4d39-a9ff-1f776dd3dfa8"
 //构建版本的名称
 def tag = "latest"
 //Harbor私服地址
-def harbor_url = "192.168.100.134:85"
+def harbor_url = "192.168.10.134:85"
 //Harbor的项目名称
 def harbor_project_name = "tensquare"
 
